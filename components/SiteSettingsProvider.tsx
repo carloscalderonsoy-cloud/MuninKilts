@@ -42,7 +42,7 @@ export const STYLE_PRESETS: StylePreset[] = [
   {
     id: "clasico",
     label: "Clásico Munin",
-    blurb: "Oro sobre negro, Cinzel, foto a la derecha. El look base del brief.",
+    blurb: "Oro sobre negro, Cinzel, texto a la izquierda. El look base del brief.",
     swatch: "#C9A227",
     theme: "oro",
     displayFont: "cinzel",
@@ -62,7 +62,7 @@ export const STYLE_PRESETS: StylePreset[] = [
   {
     id: "taller",
     label: "Taller Nórdico",
-    blurb: "Acento índigo, foto a la izquierda. Más frío, más de bitácora de taller.",
+    blurb: "Acento índigo, texto a la derecha. Más frío, más de bitácora de taller.",
     swatch: "#37485A",
     theme: "indigo",
     displayFont: "cinzel",
@@ -72,7 +72,7 @@ export const STYLE_PRESETS: StylePreset[] = [
   {
     id: "editorial",
     label: "Editorial Suave",
-    blurb: "Latón + Eczar + Work Sans, foto a la izquierda. El más editorial de los seis.",
+    blurb: "Latón + Eczar + Work Sans, texto a la derecha. El más editorial de los seis.",
     swatch: "#E8CE8B",
     theme: "laton",
     displayFont: "eczar",
@@ -82,7 +82,7 @@ export const STYLE_PRESETS: StylePreset[] = [
   {
     id: "indigo-moderno",
     label: "Índigo Moderno",
-    blurb: "Acento índigo con Eczar + Work Sans, foto a la derecha. Frío pero más suave que el Taller Nórdico.",
+    blurb: "Acento índigo con Eczar + Work Sans, texto a la izquierda. Frío pero más suave que el Taller Nórdico.",
     swatch: "#37485A",
     theme: "indigo",
     displayFont: "eczar",
@@ -92,7 +92,7 @@ export const STYLE_PRESETS: StylePreset[] = [
   {
     id: "oro-documental",
     label: "Oro Documental",
-    blurb: "Oro clásico con Eczar + Work Sans, foto a la izquierda. El acento de siempre, tono más de bitácora.",
+    blurb: "Oro clásico con Eczar + Work Sans, texto a la derecha. El acento de siempre, tono más de bitácora.",
     swatch: "#C9A227",
     theme: "oro",
     displayFont: "eczar",

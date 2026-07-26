@@ -16,10 +16,11 @@ app/
 components/
   Header.tsx               Nav con estado sticky al hacer scroll
   Footer.tsx
-  Hero.tsx                 Hero con video de fondo, anotación firma, toggle de música
+  Hero.tsx                 Hero a pantalla completa: video de fondo + scrim + copy
+  MusicToggle.tsx           Botón fijo (esquina inferior derecha) para la música de fondo
   SiteSettingsProvider.tsx  Estado de las propuestas de estilo (tema/tipografía/layout), localStorage
   AudioProvider.tsx         Estado global de la música de fondo (persiste entre páginas)
-  SettingsPanel.tsx         Panel de revisión de diseño (botón engrane en el hero)
+  SettingsPanel.tsx         Panel de revisión de diseño (botón engrane, esquina inferior derecha)
   Reveal.tsx / useReveal    Animación de entrada al hacer scroll (2.5s, respeta reduced-motion)
   DataBar.tsx               Franja de datos operativos
   ProductCard.tsx           Ficha de taller (foto real o placeholder + anotaciones en hover)
@@ -57,8 +58,8 @@ Ver `design/master-prompt-munin-kilts.md`, sección 13 ("Decisiones abiertas"):
 
 - **Tipografía Norseland**: usando fallback `Cinzel`/`Eczar` (Google Fonts). Reemplazar en `app/layout.tsx` + `globals.css` cuando el cliente confirme la licencia web y entregue el WOFF2.
 - **Foto de producto**: solo `MK-C01` (Cinturón Celta) y `MK-P01` (Playera Odín) siguen en placeholder de marca (`data/products.ts`) — faltan esas dos fotos reales.
-- **Video del hero**: `public/video/hero-kilts.mp4` reemplaza la foto del broche como fondo del hero. La anotación "Broche Ingwaz" se dejó en la misma posición aproximada — confirmar en el navegador que sigue señalando un detalle real del video y reubicarla si no.
-- **Audio de fondo**: `public/audio/fondo.wav` pesa ~8.5 MB (WAV sin comprimir). Recomendado convertir a MP3/OGG (~192kbps) antes de producción para no castigar datos móviles — no se hizo aquí por no tener `ffmpeg` disponible en este entorno.
+- **Video del hero**: `public/video/hero-kilts.mp4` cubre todo el hero a pantalla completa (no un recuadro), con un scrim plano (`--negro-hugin` al 58%) detrás del texto para legibilidad. La anotación "Broche Ingwaz" se quitó junto con el recuadro — ya no aplicaba a un fondo de video de pantalla completa. Si se quiere recuperar el gesto de anotación en otro punto del sitio, hay que anclarlo a una foto estática, no al video.
+- **Audio de fondo**: ahora usa `public/audio/audio-back-2.mp3` (~730 KB, ya comprimido) en vez del WAV anterior.
 - **Datos de contacto**: número de WhatsApp y correo en `app/contacto/page.tsx` son placeholders — reemplazar con los reales de Munin.
 - **Precios y SKU**: los de `data/products.ts` son los del brief; confirmar con el cliente antes de publicar.
 - **Sello rúnico**: `components/RuneSeal.tsx` es un SVG generado a partir de la referencia visual — sustituir por el logotipo vectorial real si Munin ya lo tiene.

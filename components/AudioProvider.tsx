@@ -31,7 +31,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   return (
     <AudioContext.Provider value={{ playing, toggle }}>
       {children}
-      <audio ref={ref} src="/audio/fondo.wav" loop preload="none" />
+      <audio ref={ref} src="/audio/audio-back-2.mp3" loop preload="none" />
     </AudioContext.Provider>
   );
 }

@@ -243,18 +243,41 @@ a {
   color: var(--cuero);
 }
 
-/* ---------- hero ---------- */
+/* ---------- hero (full-bleed video background) ---------- */
 .hero {
+  position: relative;
   min-height: 92vh;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 560px));
+  display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 120px var(--pad-inline) 0;
-  gap: clamp(32px, 5vw, 64px);
+  overflow: hidden;
+}
+.hero--left {
+  justify-content: flex-end;
+}
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero__bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  /* Flat wash rather than a directional vignette — reads evenly regardless
+     of which side the copy block lands on (hero--left mirrors it). */
+  background: rgba(12, 11, 10, 0.58);
 }
 .hero__copy {
+  position: relative;
+  z-index: 1;
   min-width: 0;
+  max-width: 620px;
   padding-bottom: 48px;
   container-type: inline-size;
 }
@@ -275,9 +298,6 @@ a {
   display: block;
   white-space: nowrap;
 }
-.hero--left .hero__frame {
-  order: -1;
-}
 .hero__rune {
   color: var(--oro-munin);
 }
@@ -294,109 +314,6 @@ a {
   align-items: center;
   gap: 28px;
 }
-.hero__frame {
-  min-width: 0;
-  position: relative;
-}
-.hero__photo-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  background: var(--negro-munin);
-}
-.hero__photo-wrap img,
-.hero__photo-wrap video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 50%;
-}
-.hero__sound-toggle {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 6;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(12, 11, 10, 0.65);
-  border: 1px solid rgba(201, 162, 39, 0.6);
-  color: var(--hueso);
-  font-family: var(--font-utility);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 10px 16px;
-  min-height: 40px;
-  cursor: pointer;
-  transition: border-color 200ms, background-color 200ms;
-}
-.hero__sound-toggle:hover {
-  border-color: var(--oro-munin);
-  background: rgba(12, 11, 10, 0.85);
-}
-.hero__sound-toggle svg {
-  color: var(--oro-munin);
-  flex-shrink: 0;
-}
-
-/* ---------- annotation (signature element) ---------- */
-.annotation {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-.annotation-label {
-  position: absolute;
-  font-family: var(--font-utility);
-  opacity: 0;
-}
-.annotation-label.is-visible {
-  animation: mk-fadein 400ms ease-out forwards;
-}
-.annotation-label__title {
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--oro-munin);
-  white-space: nowrap;
-}
-.annotation-label__sub {
-  font-size: 12px;
-  color: rgba(239, 231, 216, 0.7);
-  white-space: nowrap;
-  font-family: var(--font-body);
-}
-.annotation-line {
-  stroke: var(--oro-munin);
-  stroke-width: 0.5;
-  stroke-dasharray: 30;
-  stroke-dashoffset: 30;
-}
-.annotation-line.is-drawn {
-  animation: mk-drawline 700ms ease-out forwards;
-}
-.annotation-dot {
-  fill: var(--oro-munin);
-}
-
-@keyframes mk-drawline {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes mk-fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 /* ---------- reveal-on-view (text + photos), 2.5s subtle entrance ---------- */
 .reveal {
   opacity: 0;
@@ -425,11 +342,6 @@ a {
   .reveal {
     opacity: 1 !important;
     transform: none !important;
-  }
-  .annotation-label,
-  .annotation-line {
-    opacity: 1 !important;
-    stroke-dashoffset: 0 !important;
   }
 }
 
@@ -741,6 +653,35 @@ a {
   margin: 0;
 }
 
+/* ---------- background music toggle ---------- */
+.music-toggle {
+  position: fixed;
+  right: clamp(16px, 3vw, 32px);
+  bottom: calc(clamp(16px, 3vw, 32px) + 48px + 12px);
+  z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--negro-munin);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  color: var(--hueso);
+  font-family: var(--font-utility);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  min-height: 44px;
+  cursor: pointer;
+  transition: border-color 200ms, background-color 200ms;
+}
+.music-toggle:hover {
+  border-color: var(--oro-munin);
+}
+.music-toggle svg {
+  color: var(--oro-munin);
+  flex-shrink: 0;
+}
+
 /* ---------- hero settings panel (review tool, not customer-facing) ---------- */
 .settings-toggle {
   position: fixed;
@@ -887,8 +828,10 @@ a {
 /* ---------- responsive ---------- */
 @media (max-width: 767px) {
   .hero {
-    min-height: auto;
+    min-height: 100vh;
+    align-items: flex-end;
     padding-top: calc(var(--nav-h) + 32px);
+    padding-bottom: 48px;
   }
   .footer {
     flex-direction: column;
