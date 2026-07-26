@@ -846,4 +846,10 @@ a {
     flex-direction: column;
     align-items: flex-start;
   }
+  .music-toggle {
+    bottom: clamp(16px, 3vw, 32px);
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
