@@ -271,7 +271,7 @@ a {
   margin: 0 0 28px;
   color: var(--hueso);
 }
-.hero__h1 span {
+.hero__h1 > span {
   display: block;
   white-space: nowrap;
 }
@@ -789,33 +789,6 @@ a {
   color: rgba(239, 231, 216, 0.6);
   margin: 0 0 12px;
   display: block;
-}
-.settings-field {
-  margin-bottom: 14px;
-}
-.settings-field label {
-  display: block;
-  font-family: var(--font-utility);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(239, 231, 216, 0.5);
-  margin-bottom: 6px;
-}
-.settings-field input,
-.settings-field textarea {
-  width: 100%;
-  background: var(--negro-hugin);
-  border: 1px solid rgba(201, 162, 39, 0.25);
-  color: var(--hueso);
-  font-family: var(--font-body);
-  font-size: 13px;
-  padding: 8px 10px;
-  resize: vertical;
-}
-.settings-field input:focus,
-.settings-field textarea:focus {
-  border-color: var(--oro-munin);
 }
 .preset-list {
   display: flex;

@@ -51,59 +51,6 @@ export default function SettingsPanel() {
         </p>
 
         <div className="settings-group">
-          <span className="settings-group__label">Texto del hero</span>
-          <div className="settings-field">
-            <label htmlFor="f-kicker">Kicker</label>
-            <input
-              id="f-kicker"
-              value={s.hero.kicker}
-              onChange={(e) => s.setHero({ kicker: e.target.value })}
-            />
-          </div>
-          <div className="settings-field">
-            <label htmlFor="f-line1">Título — línea 1</label>
-            <input
-              id="f-line1"
-              value={s.hero.line1}
-              onChange={(e) => s.setHero({ line1: e.target.value })}
-            />
-          </div>
-          <div className="settings-field">
-            <label htmlFor="f-line2">Título — línea 2</label>
-            <input
-              id="f-line2"
-              value={s.hero.line2}
-              onChange={(e) => s.setHero({ line2: e.target.value })}
-            />
-          </div>
-          <div className="settings-field">
-            <label htmlFor="f-dek">Bajada</label>
-            <textarea
-              id="f-dek"
-              rows={3}
-              value={s.hero.dek}
-              onChange={(e) => s.setHero({ dek: e.target.value })}
-            />
-          </div>
-          <div className="settings-field">
-            <label htmlFor="f-cta1">Botón principal</label>
-            <input
-              id="f-cta1"
-              value={s.hero.cta1}
-              onChange={(e) => s.setHero({ cta1: e.target.value })}
-            />
-          </div>
-          <div className="settings-field">
-            <label htmlFor="f-cta2">Enlace secundario</label>
-            <input
-              id="f-cta2"
-              value={s.hero.cta2}
-              onChange={(e) => s.setHero({ cta2: e.target.value })}
-            />
-          </div>
-        </div>
-
-        <div className="settings-group">
           <span className="settings-group__label">Propuestas de estilo</span>
           <div className="preset-list">
             {STYLE_PRESETS.map((p) => (

@@ -72,9 +72,29 @@ export const STYLE_PRESETS: StylePreset[] = [
   {
     id: "editorial",
     label: "Editorial Suave",
-    blurb: "Latón + Eczar + Work Sans, foto a la izquierda. El más editorial de los cuatro.",
+    blurb: "Latón + Eczar + Work Sans, foto a la izquierda. El más editorial de los seis.",
     swatch: "#E8CE8B",
     theme: "laton",
+    displayFont: "eczar",
+    bodyFont: "work",
+    heroLayout: "left",
+  },
+  {
+    id: "indigo-moderno",
+    label: "Índigo Moderno",
+    blurb: "Acento índigo con Eczar + Work Sans, foto a la derecha. Frío pero más suave que el Taller Nórdico.",
+    swatch: "#37485A",
+    theme: "indigo",
+    displayFont: "eczar",
+    bodyFont: "work",
+    heroLayout: "right",
+  },
+  {
+    id: "oro-documental",
+    label: "Oro Documental",
+    blurb: "Oro clásico con Eczar + Work Sans, foto a la izquierda. El acento de siempre, tono más de bitácora.",
+    swatch: "#C9A227",
+    theme: "oro",
     displayFont: "eczar",
     bodyFont: "work",
     heroLayout: "left",
@@ -87,7 +107,6 @@ type Settings = {
   bodyFont: BodyFontId;
   heroLayout: HeroLayoutId;
   activePreset: string;
-  hero: HeroContent;
 };
 
 const DEFAULTS: Settings = {
@@ -96,14 +115,12 @@ const DEFAULTS: Settings = {
   bodyFont: STYLE_PRESETS[0].bodyFont,
   heroLayout: STYLE_PRESETS[0].heroLayout,
   activePreset: STYLE_PRESETS[0].id,
-  hero: DEFAULT_HERO_CONTENT,
 };
 
 const STORAGE_KEY = "munin-review-settings";
 
 type Ctx = Settings & {
   applyPreset: (id: string) => void;
-  setHero: (v: Partial<HeroContent>) => void;
   reset: () => void;
 };
 
@@ -149,7 +166,6 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
         activePreset: preset.id,
       }));
     },
-    setHero: (partial) => setSettings((s) => ({ ...s, hero: { ...s.hero, ...partial } })),
     reset: () => setSettings(DEFAULTS),
   };
 

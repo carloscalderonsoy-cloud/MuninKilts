@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useReveal } from "@/lib/useReveal";
-import { useSiteSettings } from "./SiteSettingsProvider";
+import { useSiteSettings, DEFAULT_HERO_CONTENT as hero } from "./SiteSettingsProvider";
 import SettingsPanel from "./SettingsPanel";
 
 export default function Hero() {
-  const { hero, heroLayout } = useSiteSettings();
+  const { heroLayout } = useSiteSettings();
 
   const kicker = useReveal<HTMLDivElement>();
   const h1 = useReveal<HTMLHeadingElement>();
