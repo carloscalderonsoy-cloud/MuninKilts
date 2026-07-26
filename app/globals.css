@@ -248,9 +248,9 @@ a {
   position: relative;
   min-height: 92vh;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-start;
-  padding: 120px var(--pad-inline) 0;
+  padding: 120px var(--pad-inline) 64px;
   overflow: hidden;
 }
 .hero--left {
@@ -276,9 +276,12 @@ a {
 .hero__copy {
   position: relative;
   z-index: 1;
-  min-width: 0;
-  max-width: 620px;
-  padding-bottom: 48px;
+  /* container-type: inline-size needs an explicit size to contain against —
+     an auto/shrink-to-fit width (the default for a flex item with no
+     basis) collapses to ~0 instead, which is what was wrapping every
+     word onto its own line. */
+  width: min(620px, 100%);
+  flex: 0 0 auto;
   container-type: inline-size;
 }
 .hero__h1 {
@@ -831,7 +834,9 @@ a {
     min-height: 100vh;
     align-items: flex-end;
     padding-top: calc(var(--nav-h) + 32px);
-    padding-bottom: 48px;
+    /* Extra clearance so the fixed music/settings button cluster in the
+       corner doesn't crowd the last CTA link. */
+    padding-bottom: 140px;
   }
   .footer {
     flex-direction: column;
