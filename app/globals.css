@@ -305,11 +305,40 @@ a {
   overflow: hidden;
   background: var(--negro-munin);
 }
-.hero__photo-wrap img {
+.hero__photo-wrap img,
+.hero__photo-wrap video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 38% 45%;
+  object-position: 50% 50%;
+}
+.hero__sound-toggle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(12, 11, 10, 0.65);
+  border: 1px solid rgba(201, 162, 39, 0.6);
+  color: var(--hueso);
+  font-family: var(--font-utility);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  min-height: 40px;
+  cursor: pointer;
+  transition: border-color 200ms, background-color 200ms;
+}
+.hero__sound-toggle:hover {
+  border-color: var(--oro-munin);
+  background: rgba(12, 11, 10, 0.85);
+}
+.hero__sound-toggle svg {
+  color: var(--oro-munin);
+  flex-shrink: 0;
 }
 
 /* ---------- annotation (signature element) ---------- */

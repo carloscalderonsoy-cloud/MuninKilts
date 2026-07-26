@@ -73,5 +73,14 @@ export const products: Product[] = [
     name: "Colgante Ingwaz",
     material: "latón fundido, cadena de acero",
     price: "$540 MXN",
+    photo: {
+      src: "/images/colgante-ingwaz.png",
+      alt: "Colgante Ingwaz de latón fundido sobre anilla de acero, montado en cuero",
+      position: "55% 45%",
+    },
+    annotations: [
+      { title: "MEDALLÓN INGWAZ", sub: "latón fundido a mano", top: "22%", left: "12%" },
+      { title: "MONTAJE DE CUERO", sub: "anilla reforzada", top: "66%", left: "12%" },
+    ],
   },
 ];

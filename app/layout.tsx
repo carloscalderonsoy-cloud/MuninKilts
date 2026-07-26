@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SiteSettingsProvider } from "@/components/SiteSettingsProvider";
+import { AudioProvider } from "@/components/AudioProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -23,10 +24,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <SiteSettingsProvider>
-          <div className="grain" aria-hidden="true" />
-          <Header />
-          {children}
-          <Footer />
+          <AudioProvider>
+            <div className="grain" aria-hidden="true" />
+            <Header />
+            {children}
+            <Footer />
+          </AudioProvider>
         </SiteSettingsProvider>
       </body>
     </html>

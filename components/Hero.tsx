@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useReveal } from "@/lib/useReveal";
 import { useSiteSettings, DEFAULT_HERO_CONTENT as hero } from "./SiteSettingsProvider";
+import { useAudio } from "./AudioProvider";
 import SettingsPanel from "./SettingsPanel";
 
 export default function Hero() {
   const { heroLayout } = useSiteSettings();
+  const { playing, toggle } = useAudio();
 
   const kicker = useReveal<HTMLDivElement>();
   const h1 = useReveal<HTMLHeadingElement>();
@@ -79,10 +81,45 @@ export default function Hero() {
           className={`hero__photo-wrap reveal reveal--photo${photo.visible ? " is-visible" : ""}`}
           style={{ transitionDelay: "200ms" }}
         >
-          <img
-            src="/images/hero-broche.png"
-            alt="Detalle del kilt negro Munin: broche de latón fundido y herraje sobre cuero, contra muro de ladrillo"
+          <video
+            src="/video/hero-kilts.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-hidden="true"
           />
+
+          <button
+            type="button"
+            className="hero__sound-toggle"
+            onClick={toggle}
+            aria-pressed={playing}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M4 9v6h4l5 5V4L8 9H4z"
+                fill="currentColor"
+              />
+              {playing ? (
+                <path
+                  d="M16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  fill="none"
+                />
+              ) : (
+                <path
+                  d="M16.5 9.5l4 5m0-5l-4 5"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                />
+              )}
+            </svg>
+            {playing ? "Apagar música" : "Encender música"}
+          </button>
 
           <svg viewBox="0 0 100 125" className="annotation" aria-hidden="true">
             <circle className="annotation-dot" cx="45" cy="58" r="1.6" />
