@@ -664,7 +664,7 @@ a {
 .music-toggle {
   position: fixed;
   right: clamp(16px, 3vw, 32px);
-  bottom: calc(clamp(16px, 3vw, 32px) + 48px + 12px);
+  top: calc(var(--nav-h) + 16px);
   z-index: 200;
   display: inline-flex;
   align-items: center;
@@ -838,18 +838,12 @@ a {
     min-height: 100vh;
     align-items: flex-end;
     padding-top: calc(var(--nav-h) + 32px);
-    /* Extra clearance so the fixed music/settings button cluster in the
-       corner doesn't crowd the last CTA link. */
-    padding-bottom: 140px;
+    /* Clearance so the fixed settings button in the corner doesn't
+       crowd the last CTA link. */
+    padding-bottom: 100px;
   }
   .footer {
     flex-direction: column;
     align-items: flex-start;
-  }
-  .music-toggle {
-    bottom: clamp(16px, 3vw, 32px);
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%);
   }
 }
