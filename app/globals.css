@@ -266,14 +266,13 @@ a {
 .hero__bg video {
   width: 100%;
   height: 100%;
-  /* cover fills edge-to-edge on every breakpoint: crops top/bottom on
-     wide desktop viewports, crops the sides on tall mobile ones. Centered
-     horizontally is safe since the subject is framed centrally in every
-     cut. Shifted down vertically (past center) so the extra height that
-     now covers the data bar is filled from the bottom of the frame,
-     trading a bit more crop off the top for none at the bottom. */
-  object-fit: cover;
-  object-position: 50% 68%;
+  /* contain: the full 16:9 frame is always visible, nothing cropped off
+     the top/bottom on web. Any letterbox strip lands on the video's own
+     black canvas under the dark scrim, so it blends with the theme
+     instead of reading as a visible bar. Mobile overrides back to cover
+     below, since that wasn't the complaint. */
+  object-fit: contain;
+  object-position: center;
 }
 .hero__scrim {
   position: absolute;
@@ -853,6 +852,10 @@ a {
     /* Clearance above the data bar (now overlaid at the very bottom,
        and prone to wrapping to 2-3 lines on narrow phones). */
     padding-bottom: 160px;
+  }
+  .hero__bg video {
+    object-fit: cover;
+    object-position: 50% 68%;
   }
   .footer {
     flex-direction: column;
