@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import DataBar from "@/components/DataBar";
 import ProductCard from "@/components/ProductCard";
 import Reveal from "@/components/Reveal";
 import { products } from "@/data/products";
@@ -11,9 +10,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Reveal as="div">
-        <DataBar />
-      </Reveal>
 
       <section id="coleccion" className="merch-section tartan-band">
         <Reveal as="div" className="section-head">

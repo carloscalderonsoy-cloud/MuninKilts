@@ -246,11 +246,13 @@ a {
 /* ---------- hero (full-bleed video background) ---------- */
 .hero {
   position: relative;
-  min-height: 92vh;
+  /* +64px absorbs the data bar, which now overlays the bottom of the
+     video instead of sitting on its own flat background below it. */
+  min-height: calc(92vh + 64px);
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
-  padding: 120px var(--pad-inline) 64px;
+  padding: 120px var(--pad-inline) 128px;
   overflow: hidden;
 }
 .hero--left {
@@ -266,9 +268,12 @@ a {
   height: 100%;
   /* cover fills edge-to-edge on every breakpoint: crops top/bottom on
      wide desktop viewports, crops the sides on tall mobile ones. Centered
-     is safe because the subject is framed centrally in every cut. */
+     horizontally is safe since the subject is framed centrally in every
+     cut. Shifted down vertically (past center) so the extra height that
+     now covers the data bar is filled from the bottom of the frame,
+     trading a bit more crop off the top for none at the bottom. */
   object-fit: cover;
-  object-position: center;
+  object-position: 50% 68%;
 }
 .hero__scrim {
   position: absolute;
@@ -276,6 +281,13 @@ a {
   /* Flat wash rather than a directional vignette — reads evenly regardless
      of which side the copy block lands on (hero--left mirrors it). */
   background: rgba(12, 11, 10, 0.58);
+}
+.hero__databar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
 }
 .hero__copy {
   position: relative;
@@ -838,9 +850,9 @@ a {
     min-height: 100vh;
     align-items: flex-end;
     padding-top: calc(var(--nav-h) + 32px);
-    /* Clearance so the fixed settings button in the corner doesn't
-       crowd the last CTA link. */
-    padding-bottom: 100px;
+    /* Clearance above the data bar (now overlaid at the very bottom,
+       and prone to wrapping to 2-3 lines on narrow phones). */
+    padding-bottom: 160px;
   }
   .footer {
     flex-direction: column;

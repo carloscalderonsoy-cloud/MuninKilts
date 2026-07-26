@@ -5,6 +5,7 @@ import { useReveal } from "@/lib/useReveal";
 import { useSiteSettings, DEFAULT_HERO_CONTENT as hero } from "./SiteSettingsProvider";
 import SettingsPanel from "./SettingsPanel";
 import MusicToggle from "./MusicToggle";
+import DataBar from "./DataBar";
 
 export default function Hero() {
   const { heroLayout } = useSiteSettings();
@@ -14,6 +15,7 @@ export default function Hero() {
   const h1 = useReveal<HTMLHeadingElement>();
   const dek = useReveal<HTMLParagraphElement>();
   const ctas = useReveal<HTMLDivElement>();
+  const databar = useReveal<HTMLDivElement>();
 
   const [firstLetter, ...restLetters] = hero.line2;
   const rune = firstLetter?.toUpperCase() === "D" ? "Đ" : firstLetter ?? "";
@@ -78,6 +80,14 @@ export default function Hero() {
             {hero.cta2} →
           </Link>
         </div>
+      </div>
+
+      <div
+        ref={databar.ref}
+        className={`hero__databar reveal${databar.visible ? " is-visible" : ""}`}
+        style={{ transitionDelay: "750ms" }}
+      >
+        <DataBar />
       </div>
 
       <MusicToggle />
