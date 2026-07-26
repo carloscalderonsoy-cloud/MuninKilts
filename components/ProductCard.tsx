@@ -1,11 +1,17 @@
+"use client";
+
 import RuneSeal from "./RuneSeal";
+import { useReveal } from "@/lib/useReveal";
 import type { Product } from "@/data/products";
 
 export default function ProductCard({ product, delayMs = 0 }: { product: Product; delayMs?: number }) {
+  const { ref, visible } = useReveal<HTMLElement>();
+
   return (
     <article
-      className="product-card fade-up"
-      style={{ animationDelay: `${delayMs}ms` }}
+      ref={ref}
+      className={`product-card reveal${visible ? " is-visible" : ""}`}
+      style={{ transitionDelay: `${delayMs}ms` }}
     >
       <div className="product-card__photo">
         <span className="product-card__sku">{product.sku}</span>

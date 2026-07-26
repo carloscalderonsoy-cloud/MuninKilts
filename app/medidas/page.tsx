@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "Cómo se toma la medida — Munin Kilts",
@@ -38,13 +39,13 @@ export default function MedidasPage() {
 
       <div className="steps">
         {STEPS.map((s, i) => (
-          <div className="step" key={s.title}>
+          <Reveal as="div" className="step" key={s.title} delayMs={i * 100}>
             <span className="step__num">{String(i + 1).padStart(2, "0")}</span>
             <div>
               <h3 className="step__title">{s.title}</h3>
               <p className="step__text">{s.text}</p>
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
 

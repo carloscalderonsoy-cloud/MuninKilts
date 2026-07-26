@@ -15,6 +15,25 @@
   --pad-inline: clamp(20px, 5vw, 64px);
 }
 
+/* ---------- theme variants (client-side review tool) ---------- */
+:root[data-theme="laton"] {
+  --oro-munin: #d4a934;
+  --laton-claro: #f0dba0;
+  --negro-munin: #1a160f;
+}
+:root[data-theme="indigo"] {
+  --indigo-tartan: #37485a;
+  --laton-claro: #e0c878;
+}
+
+/* ---------- typeface variants (client-side review tool) ---------- */
+:root[data-display-font="eczar"] {
+  --font-display: "Eczar", serif;
+}
+:root[data-body-font="work"] {
+  --font-body: "Work Sans", sans-serif;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -237,19 +256,27 @@ a {
 .hero__copy {
   min-width: 0;
   padding-bottom: 48px;
+  container-type: inline-size;
 }
 .hero__h1 {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(3.2rem, 8vw, 7rem);
-  line-height: 0.98;
+  /* Sized off the copy column itself (cqw), not the viewport — a fixed
+     vw-based clamp overflowed its 560px grid column at desktop widths
+     because "DIGNIDAD" needed ~670px at the old max size. */
+  font-size: clamp(2.6rem, 12cqw, 5.6rem);
+  line-height: 1.05;
   letter-spacing: -0.01em;
   text-transform: uppercase;
   margin: 0 0 28px;
   color: var(--hueso);
+  overflow-wrap: break-word;
 }
 .hero__h1 span {
   display: block;
+}
+.hero--left .hero__frame {
+  order: -1;
 }
 .hero__rune {
   color: var(--oro-munin);
@@ -299,7 +326,7 @@ a {
   opacity: 0;
 }
 .annotation-label.is-visible {
-  animation: mk-fadein 300ms ease-out 1.4s forwards;
+  animation: mk-fadein 400ms ease-out forwards;
 }
 .annotation-label__title {
   font-size: 11px;
@@ -321,22 +348,12 @@ a {
   stroke-dashoffset: 30;
 }
 .annotation-line.is-drawn {
-  animation: mk-drawline 600ms ease-out 0.9s forwards;
+  animation: mk-drawline 700ms ease-out forwards;
 }
 .annotation-dot {
   fill: var(--oro-munin);
 }
 
-@keyframes mk-fadeup {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 @keyframes mk-drawline {
   to {
     stroke-dashoffset: 0;
@@ -350,8 +367,24 @@ a {
     opacity: 1;
   }
 }
-.fade-up {
-  animation: mk-fadeup 500ms ease-out both;
+
+/* ---------- reveal-on-view (text + photos), 2.5s subtle entrance ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 2.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal--photo {
+  transform: scale(1.03);
+}
+.reveal--photo.is-visible {
+  transform: scale(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -359,6 +392,10 @@ a {
     animation-duration: 0.001ms !important;
     animation-delay: 0ms !important;
     transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
   .annotation-label,
   .annotation-line {
@@ -673,6 +710,159 @@ a {
   line-height: 1.6;
   color: rgba(239, 231, 216, 0.75);
   margin: 0;
+}
+
+/* ---------- hero settings panel (review tool, not customer-facing) ---------- */
+.settings-toggle {
+  position: fixed;
+  right: clamp(16px, 3vw, 32px);
+  bottom: clamp(16px, 3vw, 32px);
+  z-index: 200;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--negro-munin);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  color: var(--oro-munin);
+  cursor: pointer;
+  transition: border-color 200ms, transform 200ms;
+}
+.settings-toggle:hover {
+  border-color: var(--oro-munin);
+  transform: rotate(24deg);
+}
+.settings-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 200;
+  width: min(360px, 100vw);
+  background: var(--negro-munin);
+  border-left: 1px solid rgba(201, 162, 39, 0.3);
+  padding: 24px 24px calc(24px + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 280ms ease-out;
+}
+.settings-panel.is-open {
+  transform: translateX(0);
+}
+.settings-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.settings-panel__title {
+  font-family: var(--font-utility);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--oro-munin);
+}
+.settings-panel__close {
+  background: none;
+  border: none;
+  color: var(--hueso);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.settings-panel__note {
+  font-size: 12px;
+  color: rgba(239, 231, 216, 0.55);
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+.settings-group {
+  margin-bottom: 28px;
+}
+.settings-group__label {
+  font-family: var(--font-utility);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(239, 231, 216, 0.6);
+  margin: 0 0 12px;
+  display: block;
+}
+.settings-field {
+  margin-bottom: 14px;
+}
+.settings-field label {
+  display: block;
+  font-family: var(--font-utility);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(239, 231, 216, 0.5);
+  margin-bottom: 6px;
+}
+.settings-field input,
+.settings-field textarea {
+  width: 100%;
+  background: var(--negro-hugin);
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  color: var(--hueso);
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+.settings-field input:focus,
+.settings-field textarea:focus {
+  border-color: var(--oro-munin);
+}
+.settings-swatches {
+  display: flex;
+  gap: 10px;
+}
+.settings-swatch {
+  flex: 1;
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  background: var(--negro-hugin);
+  padding: 10px 6px;
+  cursor: pointer;
+  font-family: var(--font-utility);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(239, 231, 216, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.settings-swatch.is-active {
+  border-color: var(--oro-munin);
+  color: var(--hueso);
+}
+.settings-swatch__dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+}
+.settings-reset {
+  width: 100%;
+  background: none;
+  border: 1px solid var(--cuero);
+  color: rgba(239, 231, 216, 0.75);
+  font-family: var(--font-utility);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 12px;
+  cursor: pointer;
+  transition: border-color 200ms, color 200ms;
+}
+.settings-reset:hover {
+  border-color: var(--oro-munin);
+  color: var(--hueso);
 }
 
 /* ---------- responsive ---------- */

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { SiteSettingsProvider } from "@/components/SiteSettingsProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,15 +17,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Jost:wght@400;500&family=Karla:wght@400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Eczar:wght@400;600&family=Jost:wght@400;500&family=Karla:wght@400;500&family=Work+Sans:wght@400;500&display=swap"
           rel="stylesheet"
         />
       </head>
       <body>
-        <div className="grain" aria-hidden="true" />
-        <Header />
-        {children}
-        <Footer />
+        <SiteSettingsProvider>
+          <div className="grain" aria-hidden="true" />
+          <Header />
+          {children}
+          <Footer />
+        </SiteSettingsProvider>
       </body>
     </html>
   );
