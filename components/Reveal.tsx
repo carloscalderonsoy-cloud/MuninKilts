@@ -1,6 +1,6 @@
 "use client";
 
-import type { ElementType, ReactNode } from "react";
+import type { CSSProperties, ElementType, ReactNode } from "react";
 import { useReveal } from "@/lib/useReveal";
 
 type RevealProps = {
@@ -9,6 +9,7 @@ type RevealProps = {
   className?: string;
   delayMs?: number;
   photo?: boolean;
+  style?: CSSProperties;
 };
 
 export default function Reveal({
@@ -17,6 +18,7 @@ export default function Reveal({
   className = "",
   delayMs = 0,
   photo = false,
+  style,
 }: RevealProps) {
   const { ref, visible } = useReveal<HTMLElement>();
 
@@ -26,7 +28,7 @@ export default function Reveal({
       className={`reveal${photo ? " reveal--photo" : ""}${visible ? " is-visible" : ""}${
         className ? ` ${className}` : ""
       }`}
-      style={{ transitionDelay: `${delayMs}ms` }}
+      style={{ ...style, transitionDelay: `${delayMs}ms` }}
     >
       {children}
     </As>

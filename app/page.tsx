@@ -2,6 +2,7 @@ import Link from "next/link";
 import Hero from "@/components/Hero";
 import DataBar from "@/components/DataBar";
 import ProductCard from "@/components/ProductCard";
+import Reveal from "@/components/Reveal";
 import { products } from "@/data/products";
 
 export default function HomePage() {
@@ -10,10 +11,12 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <DataBar />
+      <Reveal as="div">
+        <DataBar />
+      </Reveal>
 
       <section id="coleccion" className="merch-section tartan-band">
-        <div className="section-head">
+        <Reveal as="div" className="section-head">
           <div className="kicker kicker--center">
             <span className="kicker__text">El taller</span>
           </div>
@@ -22,7 +25,7 @@ export default function HomePage() {
             Cinco piezas. Todas se cortan y se cosen aquí, a mano, sobre tu
             medida.
           </p>
-        </div>
+        </Reveal>
 
         <div className="merch-grid">
           {preview.map((p, i) => (
@@ -30,11 +33,11 @@ export default function HomePage() {
           ))}
         </div>
 
-        <div style={{ textAlign: "center", marginTop: 64 }}>
+        <Reveal as="div" style={{ textAlign: "center", marginTop: 64 }}>
           <Link href="/coleccion" className="btn">
             Ver toda la colección
           </Link>
-        </div>
+        </Reveal>
       </section>
     </>
   );

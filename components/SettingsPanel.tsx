@@ -1,34 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  useSiteSettings,
-  type ThemeId,
-  type DisplayFontId,
-  type BodyFontId,
-  type HeroLayoutId,
-} from "./SiteSettingsProvider";
-
-const THEMES: { id: ThemeId; label: string; dot: string }[] = [
-  { id: "oro", label: "Oro clásico", dot: "#C9A227" },
-  { id: "laton", label: "Latón cálido", dot: "#D4A934" },
-  { id: "indigo", label: "Índigo taller", dot: "#37485A" },
-];
-
-const DISPLAY_FONTS: { id: DisplayFontId; label: string }[] = [
-  { id: "cinzel", label: "Cinzel" },
-  { id: "eczar", label: "Eczar" },
-];
-
-const BODY_FONTS: { id: BodyFontId; label: string }[] = [
-  { id: "karla", label: "Karla" },
-  { id: "work", label: "Work Sans" },
-];
-
-const LAYOUTS: { id: HeroLayoutId; label: string }[] = [
-  { id: "right", label: "Foto derecha" },
-  { id: "left", label: "Foto izquierda" },
-];
+import { useSiteSettings, STYLE_PRESETS } from "./SiteSettingsProvider";
 
 export default function SettingsPanel() {
   const [open, setOpen] = useState(false);
@@ -131,65 +104,20 @@ export default function SettingsPanel() {
         </div>
 
         <div className="settings-group">
-          <span className="settings-group__label">Acomodo editorial</span>
-          <div className="settings-swatches">
-            {LAYOUTS.map((l) => (
+          <span className="settings-group__label">Propuestas de estilo</span>
+          <div className="preset-list">
+            {STYLE_PRESETS.map((p) => (
               <button
-                key={l.id}
+                key={p.id}
                 type="button"
-                className={`settings-swatch${s.heroLayout === l.id ? " is-active" : ""}`}
-                onClick={() => s.setHeroLayout(l.id)}
+                className={`preset-card${s.activePreset === p.id ? " is-active" : ""}`}
+                onClick={() => s.applyPreset(p.id)}
               >
-                {l.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="settings-group">
-          <span className="settings-group__label">Paleta</span>
-          <div className="settings-swatches">
-            {THEMES.map((t) => (
-              <button
-                key={t.id}
-                type="button"
-                className={`settings-swatch${s.theme === t.id ? " is-active" : ""}`}
-                onClick={() => s.setTheme(t.id)}
-              >
-                <span className="settings-swatch__dot" style={{ background: t.dot }} />
-                {t.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="settings-group">
-          <span className="settings-group__label">Tipografía display</span>
-          <div className="settings-swatches">
-            {DISPLAY_FONTS.map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                className={`settings-swatch${s.displayFont === f.id ? " is-active" : ""}`}
-                onClick={() => s.setDisplayFont(f.id)}
-              >
-                {f.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="settings-group">
-          <span className="settings-group__label">Tipografía de cuerpo</span>
-          <div className="settings-swatches">
-            {BODY_FONTS.map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                className={`settings-swatch${s.bodyFont === f.id ? " is-active" : ""}`}
-                onClick={() => s.setBodyFont(f.id)}
-              >
-                {f.label}
+                <span className="preset-card__dot" style={{ background: p.swatch }} />
+                <span className="preset-card__copy">
+                  <span className="preset-card__label">{p.label}</span>
+                  <span className="preset-card__blurb">{p.blurb}</span>
+                </span>
               </button>
             ))}
           </div>

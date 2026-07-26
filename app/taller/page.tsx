@@ -11,17 +11,19 @@ export const metadata: Metadata = {
 export default function TallerPage() {
   return (
     <div className="page">
-      <div className="kicker">
-        <span className="kicker__rule" />
-        <span className="kicker__text">El taller</span>
-      </div>
-      <h1 className="page__title">Viste con dignidad, vive con principios</h1>
-      <p className="page__lede">
-        Munin Kilts nace en Guadalajara con un solo trabajo: hacer que el kilt
-        se tome en serio. No es un disfraz ni una pieza de temporada — es una
-        prenda de trabajo, cortada y cosida a mano, pensada para aguantar el
-        uso diario.
-      </p>
+      <Reveal as="div">
+        <div className="kicker">
+          <span className="kicker__rule" />
+          <span className="kicker__text">El taller</span>
+        </div>
+        <h1 className="page__title">Viste con dignidad, vive con principios</h1>
+        <p className="page__lede">
+          Munin Kilts nace en Guadalajara con un solo trabajo: hacer que el
+          kilt se tome en serio. No es un disfraz ni una pieza de temporada —
+          es una prenda de trabajo, cortada y cosida a mano, pensada para
+          aguantar el uso diario.
+        </p>
+      </Reveal>
 
       <Reveal photo>
         <div

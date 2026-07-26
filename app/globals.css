@@ -270,10 +270,10 @@ a {
   text-transform: uppercase;
   margin: 0 0 28px;
   color: var(--hueso);
-  overflow-wrap: break-word;
 }
 .hero__h1 span {
   display: block;
+  white-space: nowrap;
 }
 .hero--left .hero__frame {
   order: -1;
@@ -817,35 +817,52 @@ a {
 .settings-field textarea:focus {
   border-color: var(--oro-munin);
 }
-.settings-swatches {
-  display: flex;
-  gap: 10px;
-}
-.settings-swatch {
-  flex: 1;
-  border: 1px solid rgba(201, 162, 39, 0.25);
-  background: var(--negro-hugin);
-  padding: 10px 6px;
-  cursor: pointer;
-  font-family: var(--font-utility);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: rgba(239, 231, 216, 0.7);
+.preset-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
-.settings-swatch.is-active {
+.preset-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  background: var(--negro-hugin);
+  padding: 14px;
+  cursor: pointer;
+  transition: border-color 200ms;
+}
+.preset-card:hover {
+  border-color: rgba(201, 162, 39, 0.5);
+}
+.preset-card.is-active {
   border-color: var(--oro-munin);
-  color: var(--hueso);
 }
-.settings-swatch__dot {
-  width: 18px;
-  height: 18px;
+.preset-card__dot {
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   border: 1px solid rgba(201, 162, 39, 0.4);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.preset-card__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.preset-card__label {
+  font-family: var(--font-utility);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hueso);
+}
+.preset-card__blurb {
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(239, 231, 216, 0.6);
 }
 .settings-reset {
   width: 100%;

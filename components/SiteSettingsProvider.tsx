@@ -25,29 +25,84 @@ export const DEFAULT_HERO_CONTENT: HeroContent = {
   cta2: "Cómo se toma la medida",
 };
 
+export type StylePreset = {
+  id: string;
+  label: string;
+  blurb: string;
+  swatch: string;
+  theme: ThemeId;
+  displayFont: DisplayFontId;
+  bodyFont: BodyFontId;
+  heroLayout: HeroLayoutId;
+};
+
+// Each button is a complete, cohesive look — color + type + editorial layout
+// bundled together — not independent dials the client has to mix themselves.
+export const STYLE_PRESETS: StylePreset[] = [
+  {
+    id: "clasico",
+    label: "Clásico Munin",
+    blurb: "Oro sobre negro, Cinzel, foto a la derecha. El look base del brief.",
+    swatch: "#C9A227",
+    theme: "oro",
+    displayFont: "cinzel",
+    bodyFont: "karla",
+    heroLayout: "right",
+  },
+  {
+    id: "calido",
+    label: "Cálido Latón",
+    blurb: "Acento más luminoso, Eczar en el título. Más cálido, mismo negro.",
+    swatch: "#D4A934",
+    theme: "laton",
+    displayFont: "eczar",
+    bodyFont: "karla",
+    heroLayout: "right",
+  },
+  {
+    id: "taller",
+    label: "Taller Nórdico",
+    blurb: "Acento índigo, foto a la izquierda. Más frío, más de bitácora de taller.",
+    swatch: "#37485A",
+    theme: "indigo",
+    displayFont: "cinzel",
+    bodyFont: "work",
+    heroLayout: "left",
+  },
+  {
+    id: "editorial",
+    label: "Editorial Suave",
+    blurb: "Latón + Eczar + Work Sans, foto a la izquierda. El más editorial de los cuatro.",
+    swatch: "#E8CE8B",
+    theme: "laton",
+    displayFont: "eczar",
+    bodyFont: "work",
+    heroLayout: "left",
+  },
+];
+
 type Settings = {
   theme: ThemeId;
   displayFont: DisplayFontId;
   bodyFont: BodyFontId;
   heroLayout: HeroLayoutId;
+  activePreset: string;
   hero: HeroContent;
 };
 
 const DEFAULTS: Settings = {
-  theme: "oro",
-  displayFont: "cinzel",
-  bodyFont: "karla",
-  heroLayout: "right",
+  theme: STYLE_PRESETS[0].theme,
+  displayFont: STYLE_PRESETS[0].displayFont,
+  bodyFont: STYLE_PRESETS[0].bodyFont,
+  heroLayout: STYLE_PRESETS[0].heroLayout,
+  activePreset: STYLE_PRESETS[0].id,
   hero: DEFAULT_HERO_CONTENT,
 };
 
 const STORAGE_KEY = "munin-review-settings";
 
 type Ctx = Settings & {
-  setTheme: (v: ThemeId) => void;
-  setDisplayFont: (v: DisplayFontId) => void;
-  setBodyFont: (v: BodyFontId) => void;
-  setHeroLayout: (v: HeroLayoutId) => void;
+  applyPreset: (id: string) => void;
   setHero: (v: Partial<HeroContent>) => void;
   reset: () => void;
 };
@@ -82,10 +137,18 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
 
   const value: Ctx = {
     ...settings,
-    setTheme: (theme) => setSettings((s) => ({ ...s, theme })),
-    setDisplayFont: (displayFont) => setSettings((s) => ({ ...s, displayFont })),
-    setBodyFont: (bodyFont) => setSettings((s) => ({ ...s, bodyFont })),
-    setHeroLayout: (heroLayout) => setSettings((s) => ({ ...s, heroLayout })),
+    applyPreset: (id) => {
+      const preset = STYLE_PRESETS.find((p) => p.id === id);
+      if (!preset) return;
+      setSettings((s) => ({
+        ...s,
+        theme: preset.theme,
+        displayFont: preset.displayFont,
+        bodyFont: preset.bodyFont,
+        heroLayout: preset.heroLayout,
+        activePreset: preset.id,
+      }));
+    },
     setHero: (partial) => setSettings((s) => ({ ...s, hero: { ...s.hero, ...partial } })),
     reset: () => setSettings(DEFAULTS),
   };

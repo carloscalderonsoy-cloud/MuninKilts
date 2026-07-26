@@ -13,15 +13,17 @@ const EMAIL = "hola@muninkilts.com";
 export default function ContactoPage() {
   return (
     <div className="page">
-      <div className="kicker">
-        <span className="kicker__rule" />
-        <span className="kicker__text">Contacto</span>
-      </div>
-      <h1 className="page__title">Hablemos de tu kilt</h1>
-      <p className="page__lede">
-        No hay carrito ni checkout en línea — cada pieza se confirma por
-        WhatsApp o Instagram antes de entrar al taller.
-      </p>
+      <Reveal as="div">
+        <div className="kicker">
+          <span className="kicker__rule" />
+          <span className="kicker__text">Contacto</span>
+        </div>
+        <h1 className="page__title">Hablemos de tu kilt</h1>
+        <p className="page__lede">
+          No hay carrito ni checkout en línea — cada pieza se confirma por
+          WhatsApp o Instagram antes de entrar al taller.
+        </p>
+      </Reveal>
 
       <div className="contact-grid">
         <Reveal delayMs={0}>

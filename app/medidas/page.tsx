@@ -26,16 +26,18 @@ const STEPS = [
 export default function MedidasPage() {
   return (
     <div className="page">
-      <div className="kicker">
-        <span className="kicker__rule" />
-        <span className="kicker__text">Guía de medida</span>
-      </div>
-      <h1 className="page__title">Cómo se toma la medida</h1>
-      <p className="page__lede">
-        Cada kilt Munin se corta sobre tu medida real. No manejamos tallas
-        estándar (S/M/L) — tres medidas y una cinta métrica bastan para
-        empezar.
-      </p>
+      <Reveal as="div">
+        <div className="kicker">
+          <span className="kicker__rule" />
+          <span className="kicker__text">Guía de medida</span>
+        </div>
+        <h1 className="page__title">Cómo se toma la medida</h1>
+        <p className="page__lede">
+          Cada kilt Munin se corta sobre tu medida real. No manejamos tallas
+          estándar (S/M/L) — tres medidas y una cinta métrica bastan para
+          empezar.
+        </p>
+      </Reveal>
 
       <div className="steps">
         {STEPS.map((s, i) => (
@@ -51,49 +53,51 @@ export default function MedidasPage() {
 
       <hr className="rule" />
 
-      <h2 style={{ fontFamily: "var(--font-utility)", fontSize: 13, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--oro-munin)" }}>
-        Tabla de referencia
-      </h2>
-      <table className="measure-table">
-        <thead>
-          <tr>
-            <th>Talla</th>
-            <th>Cintura (cm)</th>
-            <th>Cadera (cm)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>CH</td>
-            <td>72–78</td>
-            <td>92–98</td>
-          </tr>
-          <tr>
-            <td>M</td>
-            <td>80–86</td>
-            <td>100–106</td>
-          </tr>
-          <tr>
-            <td>G</td>
-            <td>88–94</td>
-            <td>108–114</td>
-          </tr>
-          <tr>
-            <td>XG</td>
-            <td>96–104</td>
-            <td>116–124</td>
-          </tr>
-        </tbody>
-      </table>
+      <Reveal as="div">
+        <h2 style={{ fontFamily: "var(--font-utility)", fontSize: 13, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--oro-munin)" }}>
+          Tabla de referencia
+        </h2>
+        <table className="measure-table">
+          <thead>
+            <tr>
+              <th>Talla</th>
+              <th>Cintura (cm)</th>
+              <th>Cadera (cm)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CH</td>
+              <td>72–78</td>
+              <td>92–98</td>
+            </tr>
+            <tr>
+              <td>M</td>
+              <td>80–86</td>
+              <td>100–106</td>
+            </tr>
+            <tr>
+              <td>G</td>
+              <td>88–94</td>
+              <td>108–114</td>
+            </tr>
+            <tr>
+              <td>XG</td>
+              <td>96–104</td>
+              <td>116–124</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <p className="page__lede" style={{ marginBottom: 32 }}>
-        Fuera de rango o entre dos tallas: mándanos tus tres medidas por
-        WhatsApp y confirmamos antes de cortar.
-      </p>
+        <p className="page__lede" style={{ marginBottom: 32 }}>
+          Fuera de rango o entre dos tallas: mándanos tus tres medidas por
+          WhatsApp y confirmamos antes de cortar.
+        </p>
 
-      <Link href="/contacto" className="btn">
-        Enviar mis medidas
-      </Link>
+        <Link href="/contacto" className="btn">
+          Enviar mis medidas
+        </Link>
+      </Reveal>
     </div>
   );
 }
